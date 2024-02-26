@@ -1,35 +1,40 @@
 plugins {
+    // Apply the Java plugin to add support for Java
     id 'java'
+    // Apply the IDEA plugin for IntelliJ IDEA integration
     id 'idea'
+    // Apply the Application plugin for building a JVM application
     id 'application'
 }
 
+// Define the group and version for your project
 group 'com.tech.selenium'
 version '1.0-SNAPSHOT'
 
+// Set the Java version for source and target compatibility
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
-ext {
-    seleniumVersion = '3.141.59'
-    webdrivermanagerVersion = '3.2.0'
-    cucumberversion = '4.2.2'
-}
-
 repositories {
+    // Define Maven Central as the repository to fetch dependencies from
     mavenCentral()
 }
 
 dependencies {
-    compile "org.seleniumhq.selenium:selenium-java:${seleniumVersion}"
-    compile "io.github.bonigarcia:webdrivermanager:${webdrivermanagerVersion}"
-    testCompile "io.cucumber:cucumber-java8:${cucumberversion}"
-    testCompile "io.cucumber:cucumber-junit:${cucumberversion}"
+    // Dependencies for Selenium and WebDriverManager
+    // Directly specifying the version numbers
+    implementation 'org.seleniumhq.selenium:selenium-java:4.18.1'
+    // Dependencies for Cucumber, used for testing
+    testImplementation 'io.cucumber:cucumber-junit:7.15.0'
+    testImplementation 'io.cucumber:cucumber-java8:7.15.0'
 }
 
 test {
+    // Configure test system properties
     systemProperties System.properties
+    // Ensure mytests are run on a clean environment
     dependsOn 'cleanTest'
 }
 
+// Configure Gradle to continue execution even after a failure
 gradle.startParameter.continueOnFailure = true
